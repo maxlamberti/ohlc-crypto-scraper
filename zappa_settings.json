@@ -1,0 +1,18 @@
+{
+  "scrape_event": {
+    "aws_region": "eu-west-1",
+    "profile_name": "default",
+    "project_name": "ohlc-crypto-scraper",
+    "runtime": "python3.6",
+    "debug": false,
+    "log_level": "INFO",
+    "apigateway_enabled": false,
+    "keep_warm": false,
+    "timeout_seconds": 900,
+    "events": [{
+      "function": "scraper.scraper",
+      "expression": "rate(4 hours)"
+    }],
+    "lambda_handler": "scraper.scraper"
+  }
+}
