@@ -28,15 +28,15 @@ $ pip install -r requirements.txt
 ```
 
 ### Configure Database
-Get your database credentials and write them into the corresponding fields of the database configuration file located at `ohlc-crypto-scraper/db_config.py`
+Get your database credentials ready and write them into the corresponding fields of the database configuration file located at `ohlc-crypto-scraper/db_config.py`
 
 **WARNING**: The scraper was written, used and tested for a PostgreSQL database instance only. For compatability make sure to be running a Postgres instance as well. To set up a low cost RDS Postgres instance on AWS check out this [tutorial](https://aws.amazon.com/getting-started/tutorials/create-connect-postgresql-db/).
 
-### (Optional) Zappa Settings
+### Zappa Settings (Optional)
 The `zappa_settings.json` file was initialized with some sensible defaults and will run fine without additional manipulation. However, here are some easy changes you can make to customize your deploy:
 - Specify the rate at which the data scraping event is executed by changing the [rate expression](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#RateExpressions) located in `zappa_settings.json > events > expression`.
 - Specify the [aws region](https://docs.aws.amazon.com/general/latest/gr/rande.html) of your deploy in the `aws_region` field.
-- Specif a custome name for your S3 bucket  using the `s3_bucket` field.
+- Specify a custom name for your S3 bucket using the `s3_bucket` field.
 
 ## Deploy and Schedule
 
@@ -47,14 +47,19 @@ $ zappa deploy scrape_event
 ```
 Zappa will spit out the deployment information to your terminal and let you know if the deploy was succesfull. If the deploy was succesfull your data scraper should now be up and running.
 
+Subsequent deploys are possible by calling zappa update.
+```
+$ zappa update scrape_event
+```
+
 ### Schedule
-If you decided to update the rate expression in the `zappa_settings.json` file you can easily reschedule your scraper.
+If you decided to change the rate expression in the `zappa_settings.json` file you can easily reschedule your scraper.
 ```
 $ zappa schedule scrape_event
 ```
 
 ### Undeploy
-This will remove the scheduled Lambda function.
+This will remove the Lambda function.
 ```
 $ zappa undeploy scrape_event
 ```
