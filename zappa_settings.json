@@ -11,7 +11,7 @@
     "timeout_seconds": 900,
     "events": [{
       "function": "scraper.scraper",
-      "expression": "rate(4 hours)"
+      "expression": "rate(1 hour)"
     }],
     "lambda_handler": "scraper.scraper"
   }
